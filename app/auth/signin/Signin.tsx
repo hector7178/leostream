@@ -31,7 +31,7 @@ function Signin() {
             password:data.password
         })})
         if(register.status==200){
-            toast.success("registrado correctamente")
+            toast.success("sesion iniciada correctamente")
             router.push("/admin/accounts")
         }else{
              toast.error("no iniciado")
