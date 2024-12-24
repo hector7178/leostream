@@ -32,9 +32,7 @@ export async function POST(request: NextRequest) {
         );
       } catch (e) {
         console.log('error', e);
-        return {
-          error: 'An unknown error occurred',
-        };
+        return NextResponse.json({response:"Error"},{status:400})
       }
       return NextResponse.json({response:"usuario Creado"})
     
