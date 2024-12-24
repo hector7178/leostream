@@ -26,15 +26,21 @@ function Register() {
       })
       const onSubmit: SubmitHandler<FormValues> =async (data) => {
 
-        const register=await fetch("/api/auth/signup",{method:"POST",body:JSON.stringify({
+        const register=fetch("/api/auth/signup",{method:"POST",body:JSON.stringify({
             username:data.username,
             password:data.password
         })})
-        if(register.status==200){
-            toast.success(" registrado correctamente")
-             router.push("/dashboard")
+        register.then((res)=>{
+        if(res.status==200){
+            toast.success("sesion iniciada correctamente")
+            router.push("/admin/accounts")
+        }else{
+             toast.error("no iniciado")
         }
-        toast.error("no registrado")
+       
+        }).catch((err)=>{
+          console.log("error",err)
+        })
       
       }
   

@@ -7,9 +7,10 @@ import { cookies } from "next/headers";
 import User from "../../../../lib/db/models/user";
 
 export async function POST(request: NextRequest) {
-    const {username, password}:{username:string,password:string}= await request.json()
-    await dbConnect()
+    
     try {
+        
+        const {username, password}:{username:string,password:string}= await request.json()
         await dbConnect();
 
         const users= await User.find()
@@ -30,11 +31,12 @@ export async function POST(request: NextRequest) {
           sessionCookie.value,
           sessionCookie.attributes
         );
+        return NextResponse.json({response:"usuario Creado"})
       } catch (e) {
         console.log('error', e);
         return NextResponse.json({response:"Error"},{status:400})
       }
-      return NextResponse.json({response:"usuario Creado"})
+    
     
 }
 

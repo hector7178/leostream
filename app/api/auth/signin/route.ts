@@ -7,6 +7,9 @@ import { cookies } from "next/headers";
 import User from "../../../../lib/db/models/user";
 
 export async function POST(request: NextRequest) {
+
+  try{
+
     const {username, password}:{username:string,password:string}= await request.json()
     await dbConnect();
     const existingUser = await User.findOne({ username: username, password:password });
@@ -23,6 +26,12 @@ export async function POST(request: NextRequest) {
     );
     return NextResponse.json({response:"Sesion iniciada"},{status:200})
     
+  }catch(e){
+    console.log('error', e);
+    return NextResponse.json({response:"Error"},{status:400})
+
+  }
+   
 }
 
 

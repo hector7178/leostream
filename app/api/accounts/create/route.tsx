@@ -4,6 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../../lib/db/connect";
 import Accounts from "../../../../lib/db/models/account"
 export async function POST(request: NextRequest) {
+
+    try {
+        
     const {token,id,email}:{email:string,token:string,id:string}= await request.json()
     await dbConnect()
     const listaccount=await Accounts.find({email})
@@ -22,6 +25,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({msj:"Error al Crear cuenta"},{status:400})
     
+    } catch (error) {
+        console.log('error', error);
+        return NextResponse.json({response:"Error"},{status:400})
+    
+    }
 }
 
 

@@ -24,18 +24,23 @@ function Signin() {
       const { register, handleSubmit, formState:{errors}} = useForm<FormValues>({
           resolver: yupResolver(schema), 
       })
-      const onSubmit: SubmitHandler<FormValues> =async (data) => {
+      const onSubmit: SubmitHandler<FormValues> = (data) => {
         
-        const register=await fetch("/api/auth/signin",{method:"POST",body:JSON.stringify({
+        const register= fetch("/api/auth/signin",{method:"POST",body:JSON.stringify({
             username:data.username,
             password:data.password
         })})
-        if(register.status==200){
+        register.then((res)=>{
+          if(res.status==200){
             toast.success("sesion iniciada correctamente")
             router.push("/admin/accounts")
         }else{
              toast.error("no iniciado")
         }
+       
+        }).catch(()=>{
+          console.log("error")
+        })
        
       }
   
